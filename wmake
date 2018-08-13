@@ -1,0 +1,23 @@
+#!/usr/bin/env sh
+
+make=ninja
+
+while [ $# -gt 0 ] ; do
+    case "$1" in
+        -m | --make)
+            make="${2:-}"
+            shift
+            ;;
+        *)
+            echo "Unknown command." >&2
+            exit 1
+            ;;
+    esac
+
+    shift
+done
+
+while true ; do
+    inotifywait --exclude ninja -r -m -q -e close_write --format %f . | wexec -s 0 -n 333333333 -c "$make"
+done
+

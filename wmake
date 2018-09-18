@@ -1,11 +1,37 @@
 #!/usr/bin/env sh
+################################################################################
+# Filename: wmake
+#
+# This script waits for 
+################################################################################
 
-make=ninja
+# Make sure we're more strict about execution.
+set -o errexit
+set -o pipefail
+set -o nounset
 
+# Prints the help message and exist
+help()
+{
+    exec 1>&2
+    echo "wmake"
+    echo "    -m, --make <makeprg>"
+    echo "        The program to execute after a period of inactivity."
+    echo "        By default, this is 'ninja'."
+    exit $1
+}
+
+# Set some common variables.
+makeprg=ninja
+
+# Parse the command line arguments.
 while [ $# -gt 0 ] ; do
     case "$1" in
+        -h | --help)
+            help 1
+            ;;
         -m | --make)
-            make="${2:-}"
+            makeprg="${2:-}"
             shift
             ;;
         *)
@@ -17,7 +43,8 @@ while [ $# -gt 0 ] ; do
     shift
 done
 
+# Infinite loop, calling wexec.
 while true ; do
-    inotifywait --exclude ninja -r -m -q -e close_write --format %f . | wexec -s 0 -n 333333333 -c "$make"
+    inotifywait --exclude ninja -r -m -q -e close_write --format %f . | wexec -s 0 -n 333333333 -c "$makeprg"
 done
 

@@ -1,3 +1,5 @@
+![](wexec.gif)
+
 # Overview
 
 **The primary purpose of `wexec` is to reduce (or completely remove)
@@ -37,3 +39,12 @@ And I edit code in another terminal.
     vim thing.c
 
 As soon as I type ":w" into `vim`, my entire project is rebuilt.
+
+# Installation
+
+wexec by itself requires nothing. wmake requires inotify tools.
+
+To install:
+
+    make install
+

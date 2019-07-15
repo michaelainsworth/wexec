@@ -22,7 +22,7 @@ help()
 }
 
 # Set some common variables.
-makeprg=ninja
+makeprg=
 
 # Parse the command line arguments.
 while [ $# -gt 0 ] ; do
@@ -42,6 +42,14 @@ while [ $# -gt 0 ] ; do
 
     shift
 done
+
+if [ -z "$makeprg" ] ; then
+    if [ -f Makefile ] ; then
+        makeprg=make
+    else
+        makeprg=ninja
+    fi
+fi
 
 # Infinite loop, calling wexec.
 while true ; do

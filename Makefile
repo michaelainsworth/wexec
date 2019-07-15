@@ -9,9 +9,8 @@ wexec: main.c
 	$(CC) $(CFLAGS) $< -o $@
 
 install: wexec
-	install -t /usr/local/bin wexec
-	install -t /usr/local/bin wmake
+	install -t $(DESTDIR)/bin wexec
+	install -t $(DESTDIR)/bin wmake
 
 clean:
 	rm -f wexec
-

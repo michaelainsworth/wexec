@@ -1,8 +1,8 @@
-#!/usr/bin/env sh
+#!/usr/bin/env bash
 ################################################################################
 # Filename: wmake
 #
-# This script waits for 
+# This script runs "make" (or "ninja") when a file changes.
 ################################################################################
 
 # Make sure we're more strict about execution.
